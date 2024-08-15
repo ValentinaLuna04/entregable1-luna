@@ -1,125 +1,236 @@
+//
+const productos = document.getElementById("productos")
+const carrito = document.getElementById("carrito")
+const numCar = document.getElementById("cuentaCar")
+const Carrito = JSON.parse(localStorage.getItem("carrito")) || []
 
+//Array productos
+const Productos = [
+    {
+        image: "./remeras/calavera.jpg",
+        nombre: "Remera Oversize Calavera",
+        precio: 15000,
+    },
+    {
+        image: "./remeras/costillas.jpg",
+        nombre: "Remera Oversize Costillas",
+        precio: 13400,
+    },
+    {
+        image: "./remeras/dragon.jpg",
+        nombre: "Remera Oversize Dragon",
+        precio: 16200,
+    },
+    {
+        image: "./remeras/estrellas.jpg",
+        nombre: "Remera Oversize Estrellas",
+        precio: 14700,
+    },
+    {
+        image: "./remeras/gatitos.jpg",
+        nombre: "Remera Oversize Gatitos",
+        precio: 15500,
+    },
+    {
+        image: "./remeras/gatitos2.jpg",
+        nombre: "Remera Oversize Washing\nKittens",
+        precio: 15500,
+    },
+    {
+        image: "./remeras/gatobolsa.jpg",
+        nombre: "Remera Oversize Gatito\nembolsado",
+        precio: 15800,
+    },
+    {
+        image: "./remeras/gatobolsa2.jpg",
+        nombre: "Remera Oversize Gatito\nembolsado Gris",
+        precio: 15800,
+    },
+    {
+        image: "./remeras/koi.jpg",
+        nombre: "Remera Oversize Koi",
+        precio: 14900,
+    },
+    {
+        image: "./remeras/kuromirem.jpg",
+        nombre: "Remera Oversize Kuromi Blanca",
+        precio: 17200,
+    },
+    {
+        image: "./remeras/kuromirem.jpg",
+        nombre: "Remera Oversize Kuromi Negra",
+        precio: 17200,
+    },
+    {
+        image: "./remeras/osotoso.jpg",
+        nombre: "Remera Oversize Oso",
+        precio: 14000,
+    },
+]
 
-//Saludo
-let saludo = alert("Hola! Bienvenid@ a Gabru! \nEsperamos que nuestros productos sean de tu agrado!")
-let nombreUser = prompt("¿Cuál es tu nombre?")
+//Funcionalidades
+//Carrito
 
-if(nombreUser != "" && nombreUser != null){
-    alert("Hola, " + nombreUser + "! \nPuedes pasar a ver nuestros productos.")
-}else{
-    alert("Es una lástima! Si quieres ver los productos, necesitamos tu nombre. \nAún así, gracias por visitarnos!💋")
-    bandera = false
+const sumadorCarrito = (nombre) => {
+    const producto = Carrito.find(el => {
+        return el.nombre === nombre
+    })
+    producto.cantidad += 1
+    actualizador()
 }
 
-//Compra
-let bandera = true
-const productos = ["Remera", "Top", "Pantalón", "Bermuda", "Zapato"]
-let total = 0
-const carrito = []
+const restadorCarrito = (nombre) => {
+    const producto = Carrito.find(el => {
+        return el.nombre === nombre
+    })
+    if (producto.cantidad <= 1) {
+        let arrayDeNombres = Carrito.map(el => {
+            return nombre
+        })
+        let index = arrayDeNombres.indexOf(nombre)
+        Carrito.splice(index, 1)
+    } else {
+    producto.cantidad -= 1        
+    }
+    actualizador()
+}
 
-const sumarTotal = (producto, precio, cantidad = 1) =>{
-    total += precio * cantidad
+const creadorCardsCarrito = (nombre, precio, cantidad) => {
+    const container = document.createElement("div")
+    const nombreCar = document.createElement("h3")
+    const precioCar = document.createElement("p")
+    const containerCant = document.createElement("div")
+    const cantidadCar = document.createElement("p")
+    const botonMas = document.createElement("button")
+    const botonMenos = document.createElement("button")
 
-    const carritoPalabra = producto[0].toUpperCase() + producto.slice(1)
+    container.classList.add("contenedorCar")
+    nombreCar.classList.add("nombreCar")
+    precioCar.classList.add("precioCar")
+    containerCant.classList.add("containerCant")
+    cantidadCar.classList.add("cantidadCar")
+    botonMas.classList.add("mas")
+    botonMenos.classList.add("menos")
+
+
+    precioCar.innerText = "$" + precio
+    nombreCar.innerText = nombre
+    cantidadCar.innerText = cantidad
+    botonMas.innerText = "+"
+    botonMenos.innerText = "-"
     
-    carrito.push(carritoPalabra + " x" + cantidad)
+
+    botonMas.addEventListener("click", () => {
+        sumadorCarrito(nombre)
+    })
+    botonMenos.addEventListener("click", () => {
+        restadorCarrito(nombre)
+    })
+
+    containerCant.appendChild(botonMenos)
+    containerCant.appendChild(cantidadCar)
+    containerCant.appendChild(botonMas)
+    
+    
+    container.appendChild(nombreCar)
+    container.appendChild(precioCar)
+    container.appendChild(containerCant)
+    
+
+    return container
 }
 
-function productosExistentes (producto){
-    let cantidad = 1
-    switch(producto){
-        case "remera":
-            cantidad = prompt("¿Cuántas " + producto + " quieres?")
-            sumarTotal(producto, 15000, cantidad)
-            break
-        case "top":
-            cantidad = prompt("¿Cuántos " + producto + " quieres?")
-            sumarTotal(producto, 12000, cantidad)
-            break
-        case "pantalon":
-            cantidad = prompt("¿Cuántos " + producto + " quieres?")
-            sumarTotal(producto, 24000, cantidad)
-            break
-        case "bermuda":
-            cantidad = prompt("¿Cuántas " + producto + " quieres?")
-            sumarTotal(producto, 20000, cantidad)
-            break
-        case "zapato":
-            cantidad = prompt("¿Cuántos " + producto + " quieres?")
-            sumarTotal(producto, 43000, cantidad)
-            break
-        default:
-            alert("Por ahora no contamos con ese producto!")
-            break
+const actualizador = () => {
+    carrito.innerText = ""
+
+    const totalCar = document.createElement("p")
+    const total = Carrito.reduce((acc, el) => {
+        return acc + el.cantidad * el.precio
+    },0)
+    totalCar.innerText = "Precio total: $" + total
+
+    totalCar.classList.add("totalCar")
+    
+    const totalUnidad = document.createElement("p")
+    const totalUni = Carrito.reduce((acc, el) => {
+        return acc + el.cantidad
+    },0)
+    totalUnidad.innerText = "Unidades totales: " + totalUni
+
+    totalUnidad.classList.add("totalUni")
+
+    Carrito.forEach(el => {
+        carrito.appendChild(creadorCardsCarrito(el.nombre, el.precio, el.cantidad))
+        carrito.appendChild(totalUnidad)
+        carrito.appendChild(totalCar)
+    })
+    numeroCar()
+    localStorage.setItem("carrito", JSON.stringify(Carrito))
+}
+
+const agregarAlCarrito = (nombre, precio) => {
+    const bandera = Carrito.some(el => {
+        return el.nombre === nombre
+    })
+    if (bandera) {
+        const producto = Carrito.find(el => {
+            return el.nombre === nombre
+        })
+        producto.cantidad += 1
+    } else {
+        Carrito.push({
+            nombre,
+            precio,
+            cantidad: 1
+        })
     }
+    actualizador()
 }
 
-while(bandera){
-    const productoElegido = prompt("Muy bien, " + nombreUser + ". \nAhora, ¿qué desearías comprar? \n- " + productos.join("\n- ")).toLowerCase() 
+//Cards
+const creadorCards = (image, nombre, precio) => {
+    const container = document.createElement("div")
+    const imageDOM = document.createElement("img")
+    const nombreDOM = document.createElement("h3")
+    const precioDOM = document.createElement("p")
+    const botonBuy = document.createElement("button")
 
-    productosExistentes(productoElegido)
+    container.classList.add("contenedor")
+    imageDOM.classList.add("imageDOM")
+    nombreDOM.classList.add("nombreDOM")
+    precioDOM.classList.add("precioDOM")
+    botonBuy.classList.add("buy")
 
-    bandera = confirm("¿Deseas elegir algo más?")
+    precioDOM.innerText = "$" + precio
+    nombreDOM.innerText = nombre
+    imageDOM.src = image
+    botonBuy.innerText = "Comprar"
+
+    botonBuy.addEventListener("click", () =>{
+        agregarAlCarrito(nombre, precio)
+    })
+
+    container.appendChild(imageDOM)
+    container.appendChild(nombreDOM)
+    container.appendChild(precioDOM)
+    container.appendChild(botonBuy)
+
+    return container
 }
 
-alert(nombreUser + ", elegiste estos productos: \n- " + carrito.join("\n- "))
-alert("El sub total de su compra es: " + total)
+Productos.forEach (el => {
+    const productosDOM = creadorCards(el.image, el.nombre, el.precio)
 
-//Pago
-let avisoDePago = alert("Muy bien, " + nombreUser + "! \nAhora vamos a elegir el método de pago.")
-const metodoDePago = ["Crédito", "Débito", "Transferencia"]
-let pie = true
+    productos.appendChild(productosDOM)
+})
 
-function pagoConInteres(metodos){
-    if (metodos === "credito") {
-        total = total * 1.10
-        alert("El total a pagar es: " + total.toFixed(2))
-    }
-    pie = !confirm("¿Deseas confirmar la compra?")
-}
+document.addEventListener("DOMContentLoaded", () => {
+    actualizador()
+})
 
-function metodosExistentes(metodos){
-    switch (metodos) {
-        case "credito":
-            alert("Pagar con tarjeta de crédito le agrega un 10% de interés a tu compra final.")
-            pagoConInteres(metodos)
-            break;
-        case "debito":
-            alert("No hay ningún interés! El precio a pagar sigue siendo el mismo.")
-            pagoConInteres(metodos)
-            break;
-        case "transferencia":
-            alert("No hay ningún interés! El precio a pagar sigue siendo el mismo.")
-            pagoConInteres(metodos)
-            break;
-        default:
-            alert("Debes elegir un método de pago para finalizar la compra.")
-            break;
-    }
-}
-
-while(pie){
-    const elegirPago = prompt("Los métodos de pago con los que trabajamos son: \n- " + metodoDePago.join("\n- ")).toLowerCase()
-
-    metodosExistentes(elegirPago)
-
-    if(pie){
-        pie = !confirm("¿Cancelar la compra?")
-        pedidoDeMail = false
-        userMail = false
-    }
-}
-
-//Mail
-let pedidoDeMail= alert("Ahora, " + nombreUser + ", te pediremos que nos ingreses un mail para poder enviarte los datos de tu compra y coordinar el envío.")
-let userMail = prompt("¿Cuál es tu mail?")
-
-
-if (userMail != "" && userMail != null) {
-    alert("Muchas gracias por comprar con nosotros, " + nombreUser + "! \nEn poco tiempo te llegará un correo con los detalles de tu compra y un número para coordinar el envío.")
-} else {
-    alert("Por favor, danos tu mail para enviarte los detalles de tu compra.")
-    do {
-        prompt("¿Cuál es tu mail?")
-    } while (userMail == "" && userMail == null);
+const numeroCar = ()=>{
+    const cuenta = Carrito.reduce((acc, el) => {
+        return acc + el.cantidad
+    },0)
+    numCar.innerText = cuenta
 }
