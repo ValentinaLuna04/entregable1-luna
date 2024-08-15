@@ -2,18 +2,135 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: "Playwrite AR", cursive;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
     scroll-behavior: smooth;
   }
 
 body{
     background-color: black;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#carroContainer{
+    display: flex;
+    flex-direction: column;
+    align-self:flex-end;
+    justify-self: right;
+    margin: 10px;
+}
+
+#carroContainer a{
+    margin: 5px;
+    align-self: flex-end;
+    text-decoration: none;
+    color: white;
+}
+
 h1{
+    align-self: center;
     color: white;
     font-size: 50px;
-    margin: 10%;
+    margin: 15px;
+    font-family: "Playwrite AR", cursive;
+    font-weight: 850;
+}
+
+#productos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 10px;
+    border-top: 1px rgb(37, 37, 37) solid;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border: 1.5px rgb(15, 15, 15) solid;
+    border-radius: 5px;
+}
+
+.imageDOM{
+    width: 280px;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.nombreDOM{
+    padding: 10px;
+}
+
+.precioDOM{
+    padding: 0 10px 10px 10px;
+}
+
+.buy{
+    align-self: center;
+    font-size: 1rem;
+    padding: 3px;
+    width: 95%;
+}
+
+#carrito{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1.5px rgb(15, 15, 15) solid;
+}
+
+.contenedorCar{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    border: 1.5px rgb(15, 15, 15) solid;
+}
+
+
+.contenedorCar p{
+    padding: 0 40px;
+}
+
+.containerCant{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.containerCant p{
+    padding: 0 10px;
+}
+
+.containerCant button{
+    width: 23px;
+    height: 25px;
+    font-size: 18px;
+    padding: 0 3px;
+}
+
+.containerCant .menos{
+    padding: 0 5px;
+}
+
+#carrito .totalCar{
+    margin-top: 10px;
+    align-self: center;
+}
+
+#carrito .totalUni{
+    margin-top: 10px;
+    align-self: center;
 }
