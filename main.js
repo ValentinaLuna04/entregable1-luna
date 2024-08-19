@@ -2,6 +2,7 @@
 const productos = document.getElementById("productos")
 const carrito = document.getElementById("carrito")
 const numCar = document.getElementById("cuentaCar")
+const imgCar = document.getElementById("imgCar")
 const Carrito = JSON.parse(localStorage.getItem("carrito")) || []
 
 //Array productos
@@ -69,6 +70,12 @@ const Productos = [
 ]
 
 //Funcionalidades
+//Buscador
+const barsSearch = document.getElementById("container-bars")
+const inputSearch = document.getElementById("input-search")
+const iconSearch = document.getElementById("icon-search")
+
+
 //Carrito
 
 const sumadorCarrito = (nombre) => {
@@ -187,6 +194,28 @@ const agregarAlCarrito = (nombre, precio) => {
     actualizador()
 }
 
+const numeroCar = ()=>{
+    const cuenta = Carrito.reduce((acc, el) => {
+        return acc + el.cantidad
+    },0)
+    numCar.innerText = cuenta
+}
+
+function mostrarCar(){
+    carrito.style.position = "static"
+    carrito.style.top = "190px"
+    carrito.style.right = "5px"
+
+}
+
+imgCar.addEventListener("click", ()=>{
+    if (actualizador <= 0) {
+        carrito.style.display = "none"
+    } else {
+        mostrarCar()
+    }
+})
+
 //Cards
 const creadorCards = (image, nombre, precio) => {
     const container = document.createElement("div")
@@ -228,9 +257,3 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizador()
 })
 
-const numeroCar = ()=>{
-    const cuenta = Carrito.reduce((acc, el) => {
-        return acc + el.cantidad
-    },0)
-    numCar.innerText = cuenta
-}
