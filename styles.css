@@ -113,6 +113,12 @@ h1{
     font-size: 1rem;
     padding: 3px;
     width: 95%;
+    cursor: pointer;
+    transition: all 400ms
+}
+
+.buy:hover{
+    background-color: rgb(167, 167, 167);
 }
 
 /*Carrito*/
@@ -156,6 +162,12 @@ h1{
     height: 25px;
     font-size: 18px;
     padding: 0 3px;
+    cursor: pointer;
+    transition: all 400ms
+}
+
+.containerCant button:hover{
+    background-color: rgb(167, 167, 167);
 }
 
 .containerCant .menos{
