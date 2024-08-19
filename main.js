@@ -70,12 +70,6 @@ const Productos = [
 ]
 
 //Funcionalidades
-//Buscador
-const barsSearch = document.getElementById("container-bars")
-const inputSearch = document.getElementById("input-search")
-const iconSearch = document.getElementById("icon-search")
-
-
 //Carrito
 
 const sumadorCarrito = (nombre) => {
@@ -215,6 +209,7 @@ imgCar.addEventListener("click", ()=>{
         mostrarCar()
     }
 })
+
 
 //Cards
 const creadorCards = (image, nombre, precio) => {

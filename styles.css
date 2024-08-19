@@ -68,7 +68,7 @@ h1{
 }
 
 #container-search i:hover{
-    color: rgb(37, 37, 37);
+    color: rgb(138, 138, 138);
 }
 
 
@@ -178,4 +178,10 @@ h1{
     padding: 5px;
     margin: 10px 0;
     align-self: flex-end;
+    cursor: pointer;
+    transition: all 200ms
+}
+
+#carroContainer i:hover{
+    color: rgb(138, 138, 138);
 }
