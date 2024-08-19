@@ -14,6 +14,8 @@ body{
     justify-content: center;
 }
 
+/*Comienzo header*/
+
 header{
     display: flex;
     flex-direction: column;
@@ -25,14 +27,7 @@ header{
     flex-direction: column;
     align-self:flex-end;
     justify-self: right;
-    margin: 10px;
-}
-
-#carroContainer a{
     margin: 5px;
-    align-self: flex-end;
-    text-decoration: none;
-    color: white;
 }
 
 h1{
@@ -43,6 +38,41 @@ h1{
     font-family: "Playwrite AR", cursive;
     font-weight: 850;
 }
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#container-search{
+    display: flex;
+    margin: 15px 10px;
+}
+
+#input-search{
+    width: 250px;
+    height: 27px;
+    font-size: 0.9rem;
+    color: white;
+    background: none;
+    border: none;
+    border-bottom: 2px white solid;
+}
+
+#container-search i{
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+#container-search i:hover{
+    color: rgb(37, 37, 37);
+}
+
+
+/*Productos*/
 
 #productos{
     display: flex;
@@ -85,12 +115,19 @@ h1{
     width: 95%;
 }
 
+/*Carrito*/
+
 #carrito{
     color: white;
+    background-color: black;
     display: flex;
     flex-direction: column;
     padding: 10px;
     border: 1.5px rgb(15, 15, 15) solid;
+    position: fixed;
+    top: -90%;
+    z-index: 9;
+    transition: all 500ms;
 }
 
 .contenedorCar{
@@ -133,4 +170,12 @@ h1{
 #carrito .totalUni{
     margin-top: 10px;
     align-self: center;
+}
+
+#carroContainer i{
+    color: white;
+    font-size: 1.1rem;
+    padding: 5px;
+    margin: 10px 0;
+    align-self: flex-end;
 }
